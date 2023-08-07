@@ -1,0 +1,38 @@
+.react-accessible-custom-select{
+    .custom-select-label {
+        padding-bottom: 10px;
+        display: inline-block;
+    }
+
+    .custom-select {
+        position: relative;
+    
+        .custom-select-button {
+            background-color: transparent;
+            border: 1px solid #222;
+        }
+    
+        .custom-select-dropdown-list {
+            position: absolute;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 1px solid #333;
+        }
+    
+        .custom-select-dropdown-list-item {
+            padding: 10px;
+    
+            &:hover, 
+            &:focus {
+                background-color: gray;
+                cursor: pointer;
+            }
+    
+            &.selected {
+                background-color: red;
+            }
+        }
+    }   
+}
