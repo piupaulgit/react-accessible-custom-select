@@ -3,24 +3,27 @@ import { useState } from "react";
 import "./ReactAccessibleCustomSelect.scss";
 
 interface ReactAccessibleCustomSelectProps {
-  label: string;
+  buttonLabel?: string;
   isOpen?: boolean;
+  label: string;
   options: {}[];
 }
 
 interface IDropdownDetails {
+  buttonLabel?: string;
   isOpen: boolean;
-  selectedOption: string;
   options: {}[];
+  selectedOption: string;
 }
 
 const ReactAccessibleCustomSelect = (
   props: ReactAccessibleCustomSelectProps
 ) => {
   const [dropdownDetails, setDropdownDetails] = useState<IDropdownDetails>({
+    buttonLabel: props.buttonLabel,
     isOpen: (props.isOpen && props.isOpen) || false,
-    selectedOption: "",
     options: props.options,
+    selectedOption: ""
   });
 
   const toggleDropdown = () => {
@@ -36,11 +39,11 @@ const ReactAccessibleCustomSelect = (
   };
 
   return (
-    <div className="react-accessible-custom-select">
+    <div className={`react-accessible-custom-select ${dropdownDetails.isOpen && 'expanded' || 'collapsed'}`}>
       <label className="custom-select-label">{props.label}</label>
       <div className="custom-select">
         <button className="custom-select-button" onClick={toggleDropdown}>
-          { dropdownDetails.selectedOption }
+          { dropdownDetails.selectedOption || dropdownDetails.buttonLabel }
         </button>
         {dropdownDetails.isOpen && (
           <ul

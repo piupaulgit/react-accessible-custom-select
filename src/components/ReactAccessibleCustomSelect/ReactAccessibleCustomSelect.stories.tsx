@@ -31,5 +31,5 @@ const staticOptions = [
   }
 ]
 export const Main: Story = {
-  render: () => <ReactAccessibleCustomSelect options={staticOptions} label="Select your country" />,
+  render: () => <ReactAccessibleCustomSelect options={staticOptions} label="Select your country" buttonLabel="Select option" />,
 };
