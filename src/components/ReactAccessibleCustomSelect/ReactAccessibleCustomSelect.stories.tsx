@@ -12,6 +12,7 @@ const meta: Meta<typeof ReactAccessibleCustomSelect> = {
 export default meta;
 type Story = StoryObj<typeof ReactAccessibleCustomSelect>;
 
+
 const staticOptions = [
   {
     label: 'option 1',
@@ -31,5 +32,10 @@ const staticOptions = [
   }
 ]
 export const Main: Story = {
-  render: () => <ReactAccessibleCustomSelect options={staticOptions} label="Select your country" buttonLabel="Select option" />,
+  render: () => <ReactAccessibleCustomSelect 
+  options={staticOptions} 
+  label="Select your country"
+  defaultValue={3}
+  placeholder='please choose...'
+  buttonLabel="Select option" />,
 };
