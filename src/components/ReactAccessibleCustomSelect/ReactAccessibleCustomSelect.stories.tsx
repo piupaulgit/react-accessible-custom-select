@@ -35,6 +35,7 @@ export const Main: Story = {
   render: () => <ReactAccessibleCustomSelect 
   options={staticOptions} 
   label="Select your country"
+  id="country"
   defaultValue={3}
   placeholder='please choose...'
   buttonLabel="Select option" />,
