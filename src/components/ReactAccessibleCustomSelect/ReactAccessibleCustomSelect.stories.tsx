@@ -16,19 +16,19 @@ type Story = StoryObj<typeof ReactAccessibleCustomSelect>;
 const staticOptions = [
   {
     label: 'option 1',
-    value: 1
+    value: '1'
   },
   {
     label: 'option 2',
-    value: 2
+    value: '2'
   },
   {
     label: 'option 3',
-    value: 3
+    value: '3'
   },
   {
     label: 'option 4',
-    value: 4
+    value: '4'
   }
 ]
 export const Main: Story = {
@@ -36,7 +36,7 @@ export const Main: Story = {
   options={staticOptions} 
   label="Select your country"
   id="country"
-  defaultValue={3}
+  defaultValue={'3'}
   placeholder='please choose...'
   buttonLabel="Select option" />,
 };

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./ReactAccessibleCustomSelect.scss";
 
+
 interface IOption {
   label: string,
   value: string|number
@@ -24,6 +25,19 @@ interface IDropdownDetails {
   selectedOption: any; // need to set type as IOption
 }
 
+enum KEYS {
+  ARROWDOWN = "ArrowDown",
+  ARROWUP = "ArrowUp",
+  END = "End",
+  ENTER = "Enter",
+  ESCAPE = "Escape",
+  HOME = "Home",
+  PAGEDOWN = "PageDown",
+  PAGEUP = "PageUp",
+  SPACEBAR = 'Spacebar',
+  TAB = 'TAB'
+}
+
 const ReactAccessibleCustomSelect = (
   props: ReactAccessibleCustomSelectProps
 ) => {
@@ -36,15 +50,44 @@ const ReactAccessibleCustomSelect = (
   });
 
   useEffect(() => {
-    
+    const selectedOption = document.querySelector(`#${props.id}-react-accessible-custom-select ul li[tabIndex="0"]`) as HTMLElement;
+    selectedOption && selectedOption.focus();
   }, [dropdownDetails.isOpen]);
 
-  const setFocusOnButton = () => {
+  const onButtonKeyDown = (e:any) => {
+   const { key: actionKey } = e;
 
+   (actionKey === KEYS.ARROWUP || actionKey === KEYS.ARROWDOWN || actionKey === KEYS.ENTER || actionKey === KEYS.SPACEBAR) && (
+    e.preventDefault(),
+    toggleDropdown()
+   )
+
+   actionKey === KEYS.TAB && toggleDropdown();
   }
 
-  const onOptionBlur = () => {
-    console.log("ioioi")
+  const opOptionKeyDown = (e:any) => {
+    const { key: actionKey } = e;
+
+    (actionKey === KEYS.ENTER || actionKey === KEYS.SPACEBAR) && toggleDropdown();
+
+    actionKey === KEYS.ARROWUP && setDropdownDetails((prev) => ({...dropdownDetails, activeOptionIndex: prev.activeOptionIndex > 0 ? prev.activeOptionIndex - 1 : dropdownDetails.options.length - 1}));
+
+    actionKey === KEYS.ARROWDOWN && setDropdownDetails((prev) => ({...dropdownDetails, activeOptionIndex: prev.activeOptionIndex < dropdownDetails.options.length - 1 ? prev.activeOptionIndex + 1 : 0}));
+
+    (actionKey === KEYS.HOME || actionKey === KEYS.PAGEUP) && setDropdownDetails({...dropdownDetails, activeOptionIndex: 0});
+
+    (actionKey === KEYS.END || actionKey === KEYS.PAGEDOWN) && setDropdownDetails({...dropdownDetails, activeOptionIndex: dropdownDetails.options.length - 1});
+
+    actionKey === KEYS.ENTER && getSelectedOption(e);
+
+    (actionKey === KEYS.ESCAPE || actionKey === KEYS.TAB) && (
+      toggleDropdown(),
+      document.getElementById(props.id)
+    )
+  }
+
+  const onOptionBlur = (e:any) => {
+    (!e.relatedTarget || !e.relatedTarget.  closest(`#${props.id}-react-accessible-custom-select`)) && toggleDropdown();
   }
 
   const toggleDropdown = () => {
@@ -55,30 +98,40 @@ const ReactAccessibleCustomSelect = (
     }));
   };
 
-  const getSelectedOption = (option: IOption) => {
-    setDropdownDetails({ ...dropdownDetails, isOpen: false, selectedOption: option });
+  const getSelectedOption = (e:any) => {
+    const selectedOption = dropdownDetails.options.find(option => option.value === e.target.id);
+    setDropdownDetails({ ...dropdownDetails, isOpen: false, selectedOption: selectedOption });
   };
 
+  const renderDropdownOptions = () => {
+    return dropdownDetails.options.map((option:IOption, indx: number) => {
+      return (
+        <li 
+        tabIndex={indx === dropdownDetails.activeOptionIndex ? 0 : -1 } 
+        className={`custom-select-dropdown-list-item ${dropdownDetails.selectedOption.label === option.label && 'selected'}`} 
+        key={indx} 
+        id={`${option.value}`}
+        value={option.value}>
+        {option.label}
+      </li>
+      )
+    })
+  }
+
   return (
-    <div className={`react-accessible-custom-select ${dropdownDetails.isOpen && 'expanded' || 'collapsed'}`}>
-      <label className="custom-select-label" onClick={setFocusOnButton} htmlFor={props.id}>{props.label}</label>
+    <div className={`react-accessible-custom-select ${dropdownDetails.isOpen && 'expanded' || 'collapsed'}`} id={`${props.id}-react-accessible-custom-select`}>
+      <label className="custom-select-label" htmlFor={props.id}>{props.label}</label>
       <div className="custom-select">
-        <button className="custom-select-button" onClick={toggleDropdown} id={props.id}>
+        <button className="custom-select-button" onClick={toggleDropdown} id={props.id} onKeyDown={onButtonKeyDown}>
           {dropdownDetails.selectedOption.label}
         </button>
         {dropdownDetails.isOpen && (
           <ul
             className="custom-select-dropdown-list"
             onBlur={onOptionBlur}
+            onClick={getSelectedOption}
           >
-            {dropdownDetails.options &&
-              dropdownDetails.options.map((option: any, idx: number) => {
-                return (
-                  <li tabIndex={idx === dropdownDetails.activeOptionIndex && 1 || 0 } className={`custom-select-dropdown-list-item ${dropdownDetails.selectedOption.label === option.label && 'selected'}`} key={idx} value={option.value} onClick={()=> getSelectedOption(option)}>
-                    {option.label}
-                  </li>
-                );
-              })}
+            {renderDropdownOptions()}
           </ul>
         )}
       </div>
