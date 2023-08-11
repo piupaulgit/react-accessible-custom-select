@@ -67,6 +67,7 @@ const ReactAccessibleCustomSelect = (
 
   const opOptionKeyDown = (e:any) => {
     const { key: actionKey } = e;
+    e.preventDefault();
 
     (actionKey === KEYS.ENTER || actionKey === KEYS.SPACEBAR) && toggleDropdown();
 
@@ -81,8 +82,7 @@ const ReactAccessibleCustomSelect = (
     actionKey === KEYS.ENTER && getSelectedOption(e);
 
     (actionKey === KEYS.ESCAPE || actionKey === KEYS.TAB) && (
-      toggleDropdown(),
-      document.getElementById(props.id)
+      toggleDropdown()
     )
   }
 
@@ -101,6 +101,8 @@ const ReactAccessibleCustomSelect = (
   const getSelectedOption = (e:any) => {
     const selectedOption = dropdownDetails.options.find(option => option.value === e.target.id);
     setDropdownDetails({ ...dropdownDetails, isOpen: false, selectedOption: selectedOption });
+    
+    document.getElementById(props.id)?.focus();
   };
 
   const renderDropdownOptions = () => {
@@ -130,6 +132,7 @@ const ReactAccessibleCustomSelect = (
             className="custom-select-dropdown-list"
             onBlur={onOptionBlur}
             onClick={getSelectedOption}
+            onKeyDown={opOptionKeyDown}
           >
             {renderDropdownOptions()}
           </ul>
