@@ -52,7 +52,7 @@ const ReactAccessibleCustomSelect = (
   useEffect(() => {
     const selectedOption = document.querySelector(`#${props.id}-react-accessible-custom-select ul li[tabIndex="0"]`) as HTMLElement;
     selectedOption && selectedOption.focus();
-  }, [dropdownDetails.isOpen]);
+  }, [dropdownDetails.isOpen, dropdownDetails.activeOptionIndex]);
 
   const onButtonKeyDown = (e:any) => {
    const { key: actionKey } = e;
