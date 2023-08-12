@@ -35,7 +35,7 @@ enum KEYS {
   PAGEDOWN = "PageDown",
   PAGEUP = "PageUp",
   SPACEBAR = 'Spacebar',
-  TAB = 'TAB'
+  TAB = 'Tab'
 }
 
 const ReactAccessibleCustomSelect = (
@@ -81,10 +81,11 @@ const ReactAccessibleCustomSelect = (
 
     actionKey === KEYS.ENTER && getSelectedOption(e);
 
-    (actionKey === KEYS.ESCAPE || actionKey === KEYS.TAB) && (
-      toggleDropdown()
+    actionKey === KEYS.ESCAPE && (
+      toggleDropdown(),
+      document.getElementById(props.id)?.focus()
     )
-  }
+  } 
 
   const onOptionBlur = (e:any) => {
     (!e.relatedTarget || !e.relatedTarget.  closest(`#${props.id}-react-accessible-custom-select`)) && toggleDropdown();
