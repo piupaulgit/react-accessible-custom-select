@@ -10,6 +10,7 @@ interface ReactAccessibleCustomSelectProps {
   buttonLabel?: string;
   defaultValue?: string | number;
   id: string;
+  isDisabled?: boolean;
   isOpen?: boolean;
   label: string;
   options: any; // need to set type as IOption
@@ -180,6 +181,7 @@ const ReactAccessibleCustomSelect = (
       <div className="custom-select">
         <button
           className="custom-select-button"
+          disabled={props.isDisabled}
           onClick={toggleDropdown}
           id={props.id}
           onKeyDown={onButtonKeyDown}

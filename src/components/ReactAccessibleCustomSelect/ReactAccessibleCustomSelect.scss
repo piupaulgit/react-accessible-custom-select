@@ -56,6 +56,10 @@ $black: #000000;
             &:focus {
                 outline: 2px solid red;
             }
+
+            &:disabled {
+                opacity: .5;
+            }
         }
     
         .custom-select-dropdown-list {

@@ -36,6 +36,7 @@ export const Main: Story = {
   options={staticOptions} 
   label="Select your country"
   id="country"
+  isDisabled={true}
   defaultValue={'3'}
   placeholder='please choose...'
   buttonLabel="Select option" />,
