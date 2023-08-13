@@ -12,7 +12,7 @@ interface ReactAccessibleCustomSelectProps {
   id: string;
   isDisabled?: boolean;
   isOpen?: boolean;
-  label: string;
+  label?: string;
   options: any; // need to set type as IOption
   placeholder?: string;
 }
@@ -175,9 +175,11 @@ const ReactAccessibleCustomSelect = (
       }`}
       id={`${props.id}-react-accessible-custom-select`}
     >
-      <label className="custom-select-label" htmlFor={props.id}>
-        {props.label}
-      </label>
+      {props?.label && (
+        <label className="custom-select-label" htmlFor={props.id}>
+          {props?.label}
+        </label>
+      )}
       <div className="custom-select">
         <button
           className="custom-select-button"
