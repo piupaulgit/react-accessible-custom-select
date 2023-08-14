@@ -183,7 +183,7 @@ const ReactAccessibleCustomSelect = (
       <div className="custom-select">
         <button
           className="custom-select-button"
-          disabled={props.isDisabled}
+          // disabled={props.isDisabled}
           onClick={toggleDropdown}
           id={props.id}
           onKeyDown={onButtonKeyDown}
