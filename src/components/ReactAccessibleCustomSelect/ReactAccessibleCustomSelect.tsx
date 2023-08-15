@@ -187,6 +187,9 @@ const ReactAccessibleCustomSelect = (
           onClick={toggleDropdown}
           id={props.id}
           onKeyDown={onButtonKeyDown}
+          type="button"
+          role="combobox"
+          aria-expanded={dropdownDetails.isOpen}
         >
           {dropdownDetails.selectedOption.label}
         </button>
