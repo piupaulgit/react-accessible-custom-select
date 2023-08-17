@@ -12,6 +12,21 @@ const meta: Meta<typeof ReactAccessibleCustomSelect> = {
 export default meta;
 type Story = StoryObj<typeof ReactAccessibleCustomSelect>;
 
+const onChange = () => {
+  console.log("on Change");
+}
+
+const onBlur = () => {
+  console.log("on Blur");
+}
+
+const onOpen = () =>{
+  console.log("on open")
+}
+
+const onClose = () => {
+  console.log("on Close")
+}
 
 const staticOptions = [
   {
@@ -37,6 +52,10 @@ export const Main: Story = {
   label="Select your country"
   id="country"
   isDisabled={true}
+  onBlur={onBlur}
+  onChange={onChange}
+  onOpen={onOpen}
+  onClose={onClose}
   defaultValue={'3'}
   placeholder='please choose...'
   buttonLabel="Select option" />,
