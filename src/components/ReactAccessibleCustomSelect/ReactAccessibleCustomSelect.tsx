@@ -199,7 +199,7 @@ const ReactAccessibleCustomSelect = (
       )}
       <div className="custom-select">
         <button
-          className="custom-select-button"
+          className={`custom-select-button ${props.isDisabled ? 'disabled' : ''}`}
           // disabled={props.isDisabled}
           onClick={toggleDropdown}
           onFocus={onFocus}

@@ -57,7 +57,7 @@ $black: #000000;
                 outline: 2px solid $black;
             }
 
-            &:disabled {
+            &:disabled, &.disabled {
                 opacity: .5;
             }
         }
