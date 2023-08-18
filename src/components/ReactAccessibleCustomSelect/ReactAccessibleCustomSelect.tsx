@@ -17,6 +17,7 @@ interface ReactAccessibleCustomSelectProps {
   onBlur: () => void;
   onChange: () => void;
   onClose: () => void;
+  onFocus: () => void;
   onOpen: () => void;
   options: any; // need to set type as IOption
   placeholder?: string;
@@ -162,6 +163,10 @@ const ReactAccessibleCustomSelect = (
     props.onChange();
   };
 
+  const onFocus = () => {
+    props.onFocus();
+  }
+
   const renderDropdownOptions = () => {
     return dropdownDetails.options.map((option: IOption, indx: number) => {
       return (
@@ -197,6 +202,7 @@ const ReactAccessibleCustomSelect = (
           className="custom-select-button"
           // disabled={props.isDisabled}
           onClick={toggleDropdown}
+          onFocus={onFocus}
           id={props.id}
           onKeyDown={onButtonKeyDown}
           type="button"

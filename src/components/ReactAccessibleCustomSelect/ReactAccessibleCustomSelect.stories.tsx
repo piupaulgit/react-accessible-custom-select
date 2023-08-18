@@ -28,6 +28,10 @@ const onClose = () => {
   console.log("on Close")
 }
 
+const onFocus = () => {
+  console.log("on focus")
+}
+
 const staticOptions = [
   {
     label: 'option 1',
@@ -54,6 +58,7 @@ export const Main: Story = {
   isDisabled={true}
   onBlur={onBlur}
   onChange={onChange}
+  onFocus={onFocus}
   onOpen={onOpen}
   onClose={onClose}
   defaultValue={'3'}
