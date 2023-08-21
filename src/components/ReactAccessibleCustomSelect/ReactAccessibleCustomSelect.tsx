@@ -59,7 +59,7 @@ const ReactAccessibleCustomSelect = (
       props.defaultValue &&
       props.options.filter(
         (item: IOption) => item.value === props.defaultValue
-      )[0],
+      )[0] || { label: props.placeholder, value: "" }
   });
 
   useEffect(() => {
