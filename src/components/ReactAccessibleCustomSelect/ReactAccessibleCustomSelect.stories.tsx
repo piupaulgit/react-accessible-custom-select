@@ -12,24 +12,24 @@ const meta: Meta<typeof ReactAccessibleCustomSelect> = {
 export default meta;
 type Story = StoryObj<typeof ReactAccessibleCustomSelect>;
 
-const onChange = () => {
-  console.log("on Change");
+const onChange = (e:any) => {
+  console.log('onChange', e);
 }
 
-const onBlur = () => {
-  console.log("on Blur");
+const onBlur = (e:any) => {
+  console.log("on Blur", e);
 }
 
-const onOpen = () =>{
-  console.log("on open")
+const onOpen = (e:any) =>{
+  console.log("on open", e)
 }
 
-const onClose = () => {
-  console.log("on Close")
+const onClose = (e:any) => {
+  console.log("on Close", e)
 }
 
-const onFocus = () => {
-  console.log("on focus")
+const onFocus = (e:any) => {
+  console.log(e, 'on focus')
 }
 
 const staticOptions = [
@@ -52,10 +52,13 @@ const staticOptions = [
 ]
 export const Main: Story = {
   render: () => <ReactAccessibleCustomSelect 
+  ariaDescribedBy='select county from dropdown'
+  ariaInvalid={true}
+  ariaRequired={true}
   options={staticOptions} 
   label="Select your country"
   id="country"
-  isDisabled={true}
+  isDisabled={false}
   onBlur={onBlur}
   onChange={onChange}
   onFocus={onFocus}
