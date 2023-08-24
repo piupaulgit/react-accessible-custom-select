@@ -4,20 +4,24 @@ import { render } from "@testing-library/react";
 import ReactAccessibleCustomSelect from "./ReactAccessibleCustomSelect";
 
 describe("ReactAccessibleCustomSelect", () => {
-//     let props;
+    let props:any;
 
-//     beforeEach(() => {
-//         props = {
-//             id: 'foo',
-//             onBlur: (e:any) => void,
-//             onChange: (e: {id: string, value: IOption}) => void,
-//             onClose: (e:any) => void,
-//             onFocus: (e:any) => void,
-//             onOpen: (e:any) => void,
-//             options: []
-//         }
-//     });
-//   test("renders the Button component", () => {
-//     render(<ReactAccessibleCustomSelect {...props} />);
-//   });
+    beforeEach(() => {
+        props = {
+            id: 'foo',
+            onBlur: jest.fn(),
+            onChange: jest.fn(),
+            onClose: jest.fn(),
+            onFocus: jest.fn(),
+            onOpen: jest.fn(),
+            options: []
+        }
+    });
+  it("renders the custom select component", () => {
+    render(<ReactAccessibleCustomSelect {...props} />);
+  });
+
+  it("test", () => {
+    console.log("tesssst")
+  });
 });
