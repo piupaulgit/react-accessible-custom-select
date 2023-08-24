@@ -207,7 +207,7 @@ const ReactAccessibleCustomSelect = (
       )}
       <div className="custom-select">
         <button
-          aria-describedby="d"
+          aria-describedby={props.ariaDescribedBy}
           aria-expanded={dropdownDetails.isOpen}
           aria-invalid={true}
           aria-owns={`customSelectList_${props.id}`}

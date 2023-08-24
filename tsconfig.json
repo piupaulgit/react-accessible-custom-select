@@ -12,6 +12,7 @@
     "module": "ESNext",
     "declaration": true,
     "declarationDir": "types",
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
