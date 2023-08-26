@@ -2,10 +2,12 @@ import React from "react";
 import { fireEvent, queryByRole, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import ReactAccessibleCustomSelect from "./ReactAccessibleCustomSelect";
+import ReactAccessibleCustomSelect, {
+  KEYS,
+} from "./ReactAccessibleCustomSelect";
 
 describe("ReactAccessibleCustomSelect", () => {
-  let button: HTMLElement, props: any;
+  let props: any;
 
   const options = [
     { label: "Option 1", value: "1" },
@@ -87,5 +89,32 @@ describe("ReactAccessibleCustomSelect", () => {
     });
 
     expect(selectedOptionElement).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("selected li has focus", () => {
+    render(<ReactAccessibleCustomSelect {...props} />);
+    fireEvent.click(screen.getByRole("combobox"));
+    const option = screen.getByText("Option 2");
+    fireEvent.click(option);
+    fireEvent.click(screen.getByRole("combobox"));
+    const selectedOptionElement = screen.getByRole("option", {
+      name: "Option 2",
+    });
+
+    expect(selectedOptionElement).toHaveFocus();
+  });
+
+  it("calls onFocus callback on component focus", () => {
+    render(<ReactAccessibleCustomSelect {...props} />);
+    fireEvent.focus(screen.getByRole("combobox"));
+
+    expect(props.onFocus).toHaveBeenCalled();
+  });
+
+  it("does not call onFocus on button blur", () => {
+    render(<ReactAccessibleCustomSelect {...props} />);
+    fireEvent.blur(screen.getByRole("combobox"));
+
+    expect(props.onFocus).not.toHaveBeenCalled();
   });
 });

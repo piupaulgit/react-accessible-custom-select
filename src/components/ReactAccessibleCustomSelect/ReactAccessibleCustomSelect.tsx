@@ -9,7 +9,7 @@ interface IOption {
 interface ReactAccessibleCustomSelectProps {
   ariaDescribedBy?: string;
   ariaInvalid?: boolean;
-  ariaRequired?:boolean;
+  ariaRequired?: boolean;
   buttonLabel?: string;
   className?: string;
   defaultValue?: string | number;
@@ -17,11 +17,11 @@ interface ReactAccessibleCustomSelectProps {
   isDisabled?: boolean;
   isOpen?: boolean;
   label?: string;
-  onBlur: (e:any) => void;
-  onChange: (e: {id: string, value: IOption}) => void;
-  onClose: (e:any) => void;
-  onFocus: (e:any) => void;
-  onOpen: (e:any) => void;
+  onBlur: (e: any) => void;
+  onChange: (e: { id: string; value: IOption }) => void;
+  onClose: (e: any) => void;
+  onFocus: (e: any) => void;
+  onOpen: (e: any) => void;
   options: any; // need to set type as IOption
   placeholder?: string;
 }
@@ -34,7 +34,7 @@ interface IDropdownDetails {
   selectedOption: any; // need to set type as IOption
 }
 
-enum KEYS {
+export enum KEYS {
   ARROWDOWN = "ArrowDown",
   ARROWUP = "ArrowUp",
   END = "End",
@@ -58,11 +58,10 @@ const ReactAccessibleCustomSelect = (
       (props.placeholder &&
         [{ label: props.placeholder, value: "" }].concat(props.options)) ||
       props.options,
-    selectedOption:
-      props.defaultValue &&
+    selectedOption: (props.defaultValue &&
       props.options.filter(
         (item: IOption) => item.value === props.defaultValue
-      )[0] || { label: props.placeholder, value: "" }
+      )[0]) || { label: props.placeholder, value: "" },
   });
 
   useEffect(() => {
@@ -73,7 +72,8 @@ const ReactAccessibleCustomSelect = (
   }, [dropdownDetails.isOpen, dropdownDetails.activeOptionIndex]);
 
   useEffect(() => {
-    props.onChange && props.onChange({id:props.id, value: dropdownDetails.selectedOption})
+    props.onChange &&
+      props.onChange({ id: props.id, value: dropdownDetails.selectedOption });
   }, [dropdownDetails.selectedOption]);
 
   const onButtonKeyDown = (e: any) => {
@@ -136,7 +136,7 @@ const ReactAccessibleCustomSelect = (
       toggleDropdown();
   };
 
-  const toggleDropdown = (e?:any) => {
+  const toggleDropdown = (e?: any) => {
     !dropdownDetails.isOpen ? props.onOpen(e) : props.onClose(e);
 
     setDropdownDetails((prev) => ({
@@ -156,7 +156,7 @@ const ReactAccessibleCustomSelect = (
     const selectedOption = dropdownDetails.options.find(
       (option) => option.value === e.target.id
     );
-    
+
     setDropdownDetails({
       ...dropdownDetails,
       isOpen: false,
@@ -168,9 +168,9 @@ const ReactAccessibleCustomSelect = (
     document.getElementById(props.id)?.focus();
   };
 
-  const onFocus = (e:any) => {
+  const onFocus = (e: any) => {
     props.onFocus && props.onFocus(e);
-  }
+  };
 
   const renderDropdownOptions = () => {
     return dropdownDetails.options.map((option: IOption, indx: number) => {
@@ -197,7 +197,7 @@ const ReactAccessibleCustomSelect = (
     <div
       className={`react-accessible-custom-select ${
         (dropdownDetails.isOpen && "expanded") || "collapsed"
-      } ${props.className && props.className || ''}`}
+      } ${(props.className && props.className) || ""}`}
       id={`${props.id}-react-accessible-custom-select`}
     >
       {props?.label && (
@@ -212,7 +212,9 @@ const ReactAccessibleCustomSelect = (
           aria-invalid={true}
           aria-owns={`customSelectList_${props.id}`}
           aria-required={true}
-          className={`custom-select-button ${props.isDisabled ? 'disabled' : ''}`}
+          className={`custom-select-button ${
+            props.isDisabled ? "disabled" : ""
+          }`}
           disabled={props.isDisabled}
           id={props.id}
           onClick={toggleDropdown}
