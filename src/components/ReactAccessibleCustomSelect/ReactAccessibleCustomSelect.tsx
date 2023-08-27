@@ -6,6 +6,7 @@ interface IOption {
   label: string;
   value: string | number;
 }
+
 interface ReactAccessibleCustomSelectProps {
   ariaDescribedBy?: string;
   ariaInvalid?: boolean;
@@ -22,7 +23,7 @@ interface ReactAccessibleCustomSelectProps {
   onClose: (e: any) => void;
   onFocus: (e: any) => void;
   onOpen: (e: any) => void;
-  options: any; // need to set type as IOption
+  options: IOption[];
   placeholder?: string;
 }
 
@@ -31,7 +32,7 @@ interface IDropdownDetails {
   buttonLabel?: string;
   isOpen: boolean;
   options: IOption[];
-  selectedOption: any; // need to set type as IOption
+  selectedOption: IOption;
 }
 
 export enum KEYS {
@@ -56,12 +57,16 @@ const ReactAccessibleCustomSelect = (
     isOpen: (props.isOpen && props.isOpen) || false,
     options:
       (props.placeholder &&
-        [{ label: props.placeholder, value: "" }].concat(props.options)) ||
+        [{ label: props.placeholder, value: "" }].concat(
+          props.options as []
+        )) ||
       props.options,
-    selectedOption: (props.defaultValue &&
-      props.options.filter(
-        (item: IOption) => item.value === props.defaultValue
-      )[0]) || { label: props.placeholder, value: "" },
+    selectedOption:
+      (props.defaultValue &&
+        props.options.filter(
+          (item: IOption) => item.value === props.defaultValue
+        )[0]) ||
+      ({ label: props.placeholder, value: "" } as IOption),
   });
 
   useEffect(() => {
@@ -153,9 +158,9 @@ const ReactAccessibleCustomSelect = (
   };
 
   const getSelectedOption = (e: any) => {
-    const selectedOption = dropdownDetails.options.find(
+    const selectedOption: IOption = dropdownDetails.options.find(
       (option) => option.value === e.target.id
-    );
+    ) as IOption;
 
     setDropdownDetails({
       ...dropdownDetails,
