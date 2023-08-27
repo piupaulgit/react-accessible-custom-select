@@ -49,9 +49,9 @@ export enum KEYS {
   TAB = "Tab",
 }
 
-const ReactAccessibleCustomSelect = (
-  props: ReactAccessibleCustomSelectProps
-) => {
+const ReactAccessibleCustomSelect: React.FC<
+  ReactAccessibleCustomSelectProps
+> = (props: ReactAccessibleCustomSelectProps) => {
   const [dropdownDetails, setDropdownDetails] = useState<IDropdownDetails>({
     activeOptionIndex: -1,
     buttonLabel: props.buttonLabel,
