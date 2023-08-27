@@ -4,6 +4,7 @@
 $gray: #333333;
 $white: #ffffff;
 $black: #000000;
+$red: #ff0000;
 
 .react-accessible-custom-select {
     font-family: 'Roboto', sans-serif;
@@ -26,9 +27,21 @@ $black: #000000;
         }
     }
 
+    &.error {
+        .custom-select {
+            .custom-select-button {
+                border: 2px solid $red;
+            }
+        }
+    }
+
     .custom-select-label {
         padding-bottom: 10px;
         display: inline-block;
+
+        .required-sybmol {
+            color: $red;
+        }
     }
 
     .custom-select {
@@ -64,11 +77,12 @@ $black: #000000;
     
         .custom-select-dropdown-list {
             position: absolute;
+            background-color: $white;
             left: 0;
             padding: 0;
             margin: 0;
             list-style: none;
-            border: 1px solid #333;
+            border: 1px solid $black;
         }
     
         .custom-select-dropdown-list-item {
@@ -89,4 +103,10 @@ $black: #000000;
             }
         }
     }   
+    .error-message {
+        color: $red;
+        margin: 0;
+        padding-top: 5px;
+        font-size: 15px;
+    }
 }

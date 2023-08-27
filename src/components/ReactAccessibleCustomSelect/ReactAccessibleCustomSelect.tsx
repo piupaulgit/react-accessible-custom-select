@@ -14,6 +14,7 @@ interface ReactAccessibleCustomSelectProps {
   buttonLabel?: string;
   className?: string;
   defaultValue?: string | number;
+  errorMessage?: string;
   id: string;
   isDisabled?: boolean;
   isOpen?: boolean;
@@ -159,7 +160,7 @@ const ReactAccessibleCustomSelect = (
 
   const getSelectedOption = (e: any) => {
     const selectedOption: IOption = dropdownDetails.options.find(
-      (option) => option.value === e.target.id
+      (option) => option.value.toString() === e.target.id
     ) as IOption;
 
     setDropdownDetails({
@@ -202,12 +203,15 @@ const ReactAccessibleCustomSelect = (
     <div
       className={`react-accessible-custom-select ${
         (dropdownDetails.isOpen && "expanded") || "collapsed"
-      } ${(props.className && props.className) || ""}`}
+      } ${(props.className && props.className) || ""} ${
+        (props.ariaInvalid && "error") || ""
+      }`}
       id={`${props.id}-react-accessible-custom-select`}
     >
       {props?.label && (
         <label className="custom-select-label" htmlFor={props.id}>
           {props?.label}
+          {props.ariaRequired && <span className="required-sybmol">*</span>}
         </label>
       )}
       <div className="custom-select">
@@ -244,6 +248,9 @@ const ReactAccessibleCustomSelect = (
           </ul>
         )}
       </div>
+      {props.ariaInvalid && props.errorMessage && (
+        <p className="error-message">{props.errorMessage}</p>
+      )}
     </div>
   );
 };
